@@ -6,6 +6,9 @@ require 'uri'
 module HeartbeatMonitor
   class Client
     def initialize(options = {})
+      options[:log_level] = 'DEBUG' unless options.key?(:log_level)
+      LOGGER.level = Object.const_get("Logger::#{options[:log_level].upcase}")
+
       LOGGER.info("New #{options[:type].upcase} monitor")
       klass_name = "HeartbeatMonitor::Channels::#{%w[HTTP TCP UDP].detect { |x| options[:type].upcase == x }}"
       @channel = Object.const_get(klass_name).new(options)
@@ -31,10 +34,10 @@ module HeartbeatMonitor
 
     def check
       if is_running?
-        LOGGER.info("Service is running")
+        LOGGER.info('Service is running')
         issue_heartbeat(@notification_url)
       else
-        LOGGER.warn("Service is not running")
+        LOGGER.warn('Service is not running')
       end
     end
 
@@ -43,7 +46,7 @@ module HeartbeatMonitor
     end
 
     def issue_heartbeat(url)
-      LOGGER.warn("Issuing heartbeat request")
+      LOGGER.warn('Issuing heartbeat request')
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'
