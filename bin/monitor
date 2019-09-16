@@ -32,8 +32,8 @@ OptionParser.new do |opts|
   opts.on('--test-method METHOD', 'HTTP Method to use for testing') do |method|
     options[:method] = method
   end
-  opts.on('--test-payload PAYLOAD', 'Data to post to server under test (eg json)') do |_payload|
-    options[:payload] = data
+  opts.on('--test-payload PAYLOAD', 'Data to post to server under test (eg json)') do |payload|
+    options[:payload] = payload
   end
 
   opts.on('-i', '--interval SECONDS', 'Number of seconds between checks (defaults to 60)') do |interval|
