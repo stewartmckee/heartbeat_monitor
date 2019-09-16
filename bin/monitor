@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "heartbeat_monitor"
+
+options = {
+  :type => ARGV[0] ||  ENV['MONITOR_TYPE'] || 'http',
+  :url => ARGV[1] || ENV['MONITOR_URL'],
+  :notification_url => ARGV[2] || ENV['NOTIFICATION_URL']
+}
+
+client = HeartbeatMonitor::Client.new(options)
+client.monitor
