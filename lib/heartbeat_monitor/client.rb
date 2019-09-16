@@ -37,7 +37,7 @@ module HeartbeatMonitor
     end
 
     def is_running?
-      @channel.is_running?
+      @channel.is_running?[:running]
     end
 
     def issue_heartbeat(url)
