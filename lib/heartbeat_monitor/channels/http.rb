@@ -18,8 +18,6 @@ module HeartbeatMonitor
         end
 
         if @options[:test][:body] && !response.body.include?(@options[:test][:body])
-          p response.body
-
           return { running: false, reason: "Expected body to include '#{@options[:test][:body]}'" }
         end
 

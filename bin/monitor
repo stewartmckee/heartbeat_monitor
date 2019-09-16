@@ -1,13 +1,50 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require "bundler/setup"
-require "heartbeat_monitor"
+require 'bundler/setup'
+require 'heartbeat_monitor'
+require 'optparse'
 
-options = {
-  :type => ARGV[0] ||  ENV['MONITOR_TYPE'] || 'http',
-  :url => ARGV[1] || ENV['MONITOR_URL'],
-  :notification_url => ARGV[2] || ENV['NOTIFICATION_URL']
-}
+options = { test: { status: 200 } }
+OptionParser.new do |opts|
+  opts.banner = 'Usage:  bin/monitor [options]'
+
+  opts.on('-t', '--type TYPE', 'check type to be used (HTTP, TCP, UDP)') do |t|
+    type = %w[HTTP TCP UDP].detect { |x| t.upcase == x }
+    raise "Invalid type given '#{t}, supported types: HTTP, TCP, UDP" unless type
+
+    options[:type] = t
+  end
+  opts.on('-n', '--notification_url URL', 'Url to request on success') do |t|
+    options[:notification_url] = t
+  end
+  opts.on('-u', '--url URL', 'Url to check if using HTTP') do |url|
+    options[:url] = url
+  end
+
+  opts.on('-h', '--host HOST', 'Host to send check request to') do |host|
+    options[:host] = host
+  end
+  opts.on('-p', '--port PORT', Integer, 'Port to send check request to') do |port|
+    options[:port] = port
+  end
+
+  opts.on('-i', '--interval SECONDS', 'Number of seconds between checks (defaults to 60)') do |interval|
+    options[:interval] = interval
+  end
+
+  opts.on('--test-body-contents', 'Text that should appear in response body') do |body_text|
+    options[:test].merge(body: body_text)
+  end
+
+  opts.on('--test-status-code STATUSCODE', 'Status code to expect (defaults to 200)') do |status_code|
+    options[:test].merge(status: status_code)
+  end
+
+  opts.on('-v', '--[no-]verbose', 'Run verbosely') do |v|
+    options[:verbose] = v
+  end
+end.parse!
 
 client = HeartbeatMonitor::Client.new(options)
 client.monitor
