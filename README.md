@@ -2,9 +2,34 @@
 
 HeartbeatMonitor is intended to be used within an internal protected network such as within a Kubernetes cluster and will issue monitor requests to internal services at defined intervals.  Successful requests will result in a heartbeat request being issued to a specified url.  The current use case for this is to monitor internal services within Kubernetes on the UptimeRobot (https://uptimerobot.com) platform.
 
-Currently only implemented HTTP(s) checking, TCP to follow, and UDP probably a while after that.  HTTP post data and alternative testing (eg body text) to come too
+**Currently only implemented HTTP(s) checking, TCP to follow, and UDP probably a while after that.**
 
-Kubernetes example of sidecar usage can be found in k8.yaml
+## Starting the Monitor
+
+The monitor is built as a ruby gem so can be integrated within your application.  I have added a CLI however so that you can run from the command line.
+
+    bin/monitor --help
+
+will give you the details
+
+## Examples
+
+These examples were from my first use case and are using the new heartbeat monitor from UptimeRobot, but will perform a HTTP Get request to whatever url you specify.
+
+The following command is the simplest monitor, its testing a http server.  By default it is expecting a 200 status response.  If it gets this then it will perform a HTTP GET request to the notification url provided.
+
+    bin/monitor --type http --test-url http://127.0.0.1 --notification-url https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"]
+
+The following example is performing an HTTP post with some payload to the server under test.  As we have specified `--test-body-contents` it will override the status test above, both can be specified if you need to test both.  Refer to `--help` for the params required.
+
+    bin/monitor --type http --test-url http://127.0.0.1:8080/imaginary-post-test --notification-url https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID --test-method POST --test-payload '{\"sentence\":{\"subject\":\"John\",\"verb\":\"like\"}}' --test-body-contents 'John likes.'
+
+
+## Kubernetes
+
+The use case this gem was built for was to test services deployed within a kubernetes cluster that are not exposed to the internet.  We use an external monitoring service and therefore were unable to directly monitor their uptime. 
+
+An example config is available in `k8.yaml`.
 
 ## Installation
 

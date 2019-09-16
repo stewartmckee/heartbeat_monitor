@@ -18,8 +18,19 @@ spec:
         ports:
         - containerPort: 80
       - name: monitor
-        image: stewartmckee/heartbeat_monitor:0.0.3
+        image: stewartmckee/heartbeat_monitor:0.0.6
         args: ["--type", "http", "--url", "http://127.0.0.1:80", "--notification_url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"]
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1m
+            memory: 20Mi
+          limits:
+            cpu: 20m
+            memory: 30Mi
+      - name: monitor
+        image: stewartmckee/heartbeat_monitor:0.0.4
+        args: ["--type", "http", "--url", "http://127.0.0.1:80/imaginary-post-test", "--notification-url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID", "--test-method", "POST", "--test-payload", "'{\"sentence\":{\"subject\":\"John\",\"verb\":\"like\"}}'", "--test-body-contents", "John likes."]
         imagePullPolicy: Always
         resources:
           requests:
