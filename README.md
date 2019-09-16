@@ -1,8 +1,6 @@
 # HeartbeatMonitor
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/heartbeat_monitor`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+HeartbeatMonitor is intended to be used within an internal protected network such as within a Kubernetes cluster and will issue monitor requests to internal services at defined intervals.  Successful requests will result in a heartbeat request being issued to a specified url.  The current use case for this is to monitor internal services within Kubernetes on the UptimeRobot (https://uptimerobot.com) platform.
 
 ## Installation
 
