@@ -34,7 +34,7 @@ module HeartbeatMonitor
 
     def check
       if is_running?
-        LOGGER.info('Service is running')
+        LOGGER.debug('Service is running')
         issue_heartbeat(@notification_url)
       else
         LOGGER.warn('Service is not running')
@@ -46,7 +46,7 @@ module HeartbeatMonitor
     end
 
     def issue_heartbeat(url)
-      LOGGER.warn('Issuing heartbeat request')
+      LOGGER.debug('Issuing heartbeat request')
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'
