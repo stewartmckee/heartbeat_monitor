@@ -18,8 +18,8 @@ spec:
         ports:
         - containerPort: 80
       - name: monitor
-        image: stewartmckee/heartbeat_monitor
-        args: ["--type http", "--url http://127.0.0.1:80", "--notification_url https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"]
+        image: stewartmckee/heartbeat_monitor:0.0.3
+        args: ["--type", "http", "--url", "http://127.0.0.1:80", "--notification_url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"]
         imagePullPolicy: Always
         resources:
           requests:
