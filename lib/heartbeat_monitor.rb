@@ -12,7 +12,7 @@ Dir[File.dirname(__FILE__) + '/heartbeat_monitor/channels/*.rb'].each { |file| r
 
 LOGGER = Logger.new(STDOUT)
 LOGGER.formatter = proc do |severity, datetime, _progname, msg|
-  { timestamp: datetime, severity: severity, message: msg }.to_json
+  "#{{ timestamp: datetime, severity: severity, message: msg }.to_json}\n"
 end
 
 module HeartbeatMonitor
