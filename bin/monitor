@@ -15,24 +15,24 @@ OptionParser.new do |opts|
 
     options[:type] = t
   end
-  opts.on('-n', '--notification_url URL', 'Url to request on success') do |t|
+  opts.on('-n', '--notification-url URL', 'Url to request on success') do |t|
     options[:notification_url] = t
   end
-  opts.on('-u', '--test_url URL', 'Url to check if using HTTP') do |url|
+  opts.on('-u', '--test-url URL', 'Url to check if using HTTP') do |url|
     options[:url] = url
   end
 
-  opts.on('-h', '--test_host HOST', 'Host to send check request to') do |host|
+  opts.on('-h', '--test-host HOST', 'Host to send check request to') do |host|
     options[:host] = host
   end
-  opts.on('-p', '--test_port PORT', Integer, 'Port to send check request to') do |port|
+  opts.on('-p', '--test-port PORT', Integer, 'Port to send check request to') do |port|
     options[:port] = port
   end
 
-  opts.on('--test_method METHOD', 'HTTP Method to use for testing') do |method|
+  opts.on('--test-method METHOD', 'HTTP Method to use for testing') do |method|
     @options[:method] = method
   end
-  opts.on('--test_payload PAYLOAD', 'Data to post to server under test (eg json)') do |_payload|
+  opts.on('--test-payload PAYLOAD', 'Data to post to server under test (eg json)') do |_payload|
     @options[:payload] = data
   end
 
