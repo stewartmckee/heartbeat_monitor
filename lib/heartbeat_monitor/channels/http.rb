@@ -14,10 +14,12 @@ module HeartbeatMonitor
       def is_running?
         response = get_response
         if @options[:test][:status] && response.code.to_i != @options[:test][:status].to_i
+          LOGGER.warn("Expected status #{@options[:test][:status]} actual #{response.code}")
           return { running: false, reason: "Expected status #{@options[:test][:status]} actual #{response.code}" }
         end
 
         if @options[:test][:body] && !response.body.include?(@options[:test][:body])
+          LOGGER.warn("Expected body to include '#{@options[:test][:body]}'")
           return { running: false, reason: "Expected body to include '#{@options[:test][:body]}'" }
         end
 
