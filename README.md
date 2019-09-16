@@ -2,6 +2,10 @@
 
 HeartbeatMonitor is intended to be used within an internal protected network such as within a Kubernetes cluster and will issue monitor requests to internal services at defined intervals.  Successful requests will result in a heartbeat request being issued to a specified url.  The current use case for this is to monitor internal services within Kubernetes on the UptimeRobot (https://uptimerobot.com) platform.
 
+Currently only implemented HTTP(s) checking, TCP to follow, and UDP probably a while after that.  HTTP post data and alternative testing (eg body text) to come too
+
+Kubernetes example of sidecar usage can be found in k8.yaml
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -30,7 +34,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/heartbeat_monitor.
+Bug reports and pull requests are welcome on GitHub at https://github.com/stewartmckee/heartbeat_monitor.
 
 ## License
 
