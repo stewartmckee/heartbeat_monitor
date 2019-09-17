@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require "bundler/setup"
-require "heartbeat_monitor"
+require 'bundler/setup'
+require 'heartbeat_monitor'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -10,5 +11,9 @@ require "heartbeat_monitor"
 # require "pry"
 # Pry.start
 
-require "irb"
-IRB.start(__FILE__)
+require 'irb'
+IRB.setup nil
+IRB.conf[:MAIN_CONTEXT] = IRB::Irb.new.context
+require 'irb/ext/multi-irb'
+IRB.irb nil, self
+# IRB.start(__FILE__)

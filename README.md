@@ -25,6 +25,17 @@ The following example is performing an HTTP post with some payload to the server
     bin/monitor --type http --test-url http://127.0.0.1:8080/imaginary-post-test --notification-url https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID --test-method POST --test-payload '{\"sentence\":{\"subject\":\"John\",\"verb\":\"like\"}}' --test-body-contents 'John likes.'
 
 
+## Docker
+
+You can run with docker simply run...
+
+    docker run -ti stewartmckee/heartbeat_monitor --type http --test-url "http://127.0.0.1:80" --notification-url "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"
+
+or you can run as a daemon:
+
+    docker run -d stewartmckee/heartbeat_monitor --type http --test-url "http://127.0.0.1:80" --notification-url "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"
+
+
 ## Kubernetes
 
 The use case this gem was built for was to test services deployed within a kubernetes cluster that are not exposed to the internet.  We use an external monitoring service and therefore were unable to directly monitor their uptime. 

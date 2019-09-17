@@ -6,13 +6,13 @@ require 'heartbeat_monitor/channels/channel'
 require 'logger'
 require 'json'
 
-$stdout.sync
+$stdout.sync = true
 
 Dir[File.dirname(__FILE__) + '/heartbeat_monitor/channels/*.rb'].each { |file| require file }
 
 LOGGER = Logger.new(STDOUT)
 LOGGER.formatter = proc do |severity, datetime, _progname, msg|
-  "#{{ timestamp: datetime, severity: severity, message: msg }.to_json}\n"
+  "#{{ timestamp: datetime, level: severity, message: msg }.to_json}\n"
 end
 
 module HeartbeatMonitor

@@ -18,8 +18,8 @@ spec:
         ports:
         - containerPort: 80
       - name: monitor
-        image: stewartmckee/heartbeat_monitor:0.0.6
-        args: ["--type", "http", "--url", "http://127.0.0.1:80", "--notification_url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"]
+        image: stewartmckee/heartbeat_monitor:0.1.1
+        args: ["--type", "http", "--test-url", "http://127.0.0.1:80", "--notification-url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID"]
         imagePullPolicy: Always
         resources:
           requests:
@@ -29,8 +29,8 @@ spec:
             cpu: 20m
             memory: 30Mi
       - name: monitor
-        image: stewartmckee/heartbeat_monitor:0.0.4
-        args: ["--type", "http", "--url", "http://127.0.0.1:80/imaginary-post-test", "--notification-url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID", "--test-method", "POST", "--test-payload", "'{\"sentence\":{\"subject\":\"John\",\"verb\":\"like\"}}'", "--test-body-contents", "John likes."]
+        image: stewartmckee/heartbeat_monitor:0.1.1
+        args: ["--type", "http", "--url", "http://127.0.0.1:80/imaginary-post-test", "--notification-url", "https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID", "--test-method", "POST", "--test-payload", '{"sentence":{"subject":"John","verb":"like"}}', "--test-body-contents", "John likes.", "--headers", '{"Content-Type": "application/json"}']
         imagePullPolicy: Always
         resources:
           requests:

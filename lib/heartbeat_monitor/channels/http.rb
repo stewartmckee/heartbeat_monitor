@@ -18,6 +18,7 @@ module HeartbeatMonitor
           return { running: false, reason: "Expected status #{@options[:test][:status]} actual #{response.code}" }
         end
 
+        puts response.body
         if @options[:test][:body] && !response.body.include?(@options[:test][:body])
           LOGGER.warn("Expected body to include '#{@options[:test][:body]}'")
           return { running: false, reason: "Expected body to include '#{@options[:test][:body]}'" }

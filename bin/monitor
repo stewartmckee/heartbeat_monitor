@@ -48,6 +48,10 @@ OptionParser.new do |opts|
     options[:test].merge(status: status_code)
   end
 
+  opts.on('--headers HEADERS', 'Headers in json format') do |headers|
+    options[:headers] = JSON.parse(headers)
+  end
+
   opts.on('-l', '--log-level LEVEL', 'Sets the log level (FATAL, ERROR, WARN, INFO, DEBUG)') do |level|
     options[:log_level] = level
   end
