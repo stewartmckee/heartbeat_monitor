@@ -37,7 +37,7 @@ OptionParser.new do |opts|
   end
 
   opts.on('-i', '--interval SECONDS', 'Number of seconds between checks (defaults to 60)') do |interval|
-    options[:interval] = interval
+    options[:interval] = interval.to_s.to_i
   end
 
   opts.on('--test-body-contents', 'Text that should appear in response body') do |body_text|
