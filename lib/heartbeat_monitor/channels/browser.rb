@@ -16,9 +16,11 @@ module HeartbeatMonitor
       def running?
         begin
           browser = Ferrum::Browser.new(timeout: 1)
+          LOGGER.debug("Loading '#{@options[:url]}' into browser")
           browser.go_to(@options[:url])
 
           if @options[:selector]
+            LOGGER.debug("Looking for selector '#{@options[:selector]}' in page")
             node = browser.at_css(@options[:selector])
             if node.nil?
               LOGGER.warn("Expected selector #{@options[:selector]} does not exist")

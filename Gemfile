@@ -1,11 +1,12 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 # Specify your gem's dependencies in heartbeat_monitor.gemspec
 gemspec
 
-gem "ferrum"
+gem 'ferrum'
 
 group :development do
-    gem "rspec"
-    gem "solargraph"
+  gem 'bundler'
+  gem 'rspec'
+  gem 'solargraph'
 end

@@ -5,8 +5,8 @@ require 'bundler/setup'
 require 'heartbeat_monitor'
 require 'optparse'
 
-options = { test: { status: 200 } }
-OptionParser.new do |opts|
+options = { test: { status: 200 }, log_level: :INFO }
+parser = OptionParser.new do |opts|
   opts.banner = 'Usage:  bin/monitor [options]'
 
   opts.on('-t', '--type TYPE', 'check type to be used (HTTP, TCP, UDP, BROWSER)') do |t|
@@ -59,7 +59,15 @@ OptionParser.new do |opts|
   opts.on('-l', '--log-level LEVEL', 'Sets the log level (FATAL, ERROR, WARN, INFO, DEBUG)') do |level|
     options[:log_level] = level
   end
-end.parse!
+end
 
-client = HeartbeatMonitor::Client.new(options)
-client.monitor
+parser.parse!
+
+required_options = [:type]
+
+if required_options.detect { |o| !options.key?(o) }
+  puts parser
+else
+  client = HeartbeatMonitor::Client.new(options)
+  client.monitor
+end
