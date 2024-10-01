@@ -10,7 +10,7 @@ module HeartbeatMonitor
       LOGGER.level = Object.const_get("Logger::#{options[:log_level].upcase}")
 
       LOGGER.info("New #{options[:type].upcase} monitor")
-      klass_name = "HeartbeatMonitor::Channels::#{%w[HTTP TCP UDP].detect { |x| options[:type].upcase == x }}"
+      klass_name = "HeartbeatMonitor::Channels::#{%w[HTTP TCP UDP BROWSER].detect { |x| options[:type].upcase == x }}"
       @channel = Object.const_get(klass_name).new(options)
       @notification_url = options[:notification_url]
       @interval = options[:interval] || 60
@@ -33,7 +33,7 @@ module HeartbeatMonitor
     end
 
     def check
-      if is_running?
+      if running?
         LOGGER.debug('Service is running')
         issue_heartbeat(@notification_url)
       else
@@ -41,8 +41,8 @@ module HeartbeatMonitor
       end
     end
 
-    def is_running?
-      @channel.is_running?[:running]
+    def running?
+      @channel.running?[:running]
     end
 
     def issue_heartbeat(url)

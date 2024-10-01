@@ -11,7 +11,7 @@ module HeartbeatMonitor
         @options[:test] = { status: 200 } unless @options.key?(:test)
       end
 
-      def is_running?
+      def running?
         response = get_response
         if @options[:test][:status] && response.code.to_i != @options[:test][:status].to_i
           LOGGER.warn("Expected status #{@options[:test][:status]} actual #{response.code}")

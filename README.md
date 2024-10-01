@@ -24,6 +24,9 @@ The following example is performing an HTTP post with some payload to the server
 
     bin/monitor --type http --test-url http://127.0.0.1:8080/imaginary-post-test --notification-url https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID --test-method POST --test-payload '{\"sentence\":{\"subject\":\"John\",\"verb\":\"like\"}}' --test-body-contents 'John likes.'
 
+The following example will test a single page application by opening the url in a headless browser and checking for the existance of a css selector
+
+    bin/monitor --type browser --test-url htto://singlepageapp.local/test-page/ --test-browser-selector "#a-valid-id" --notification-url https://heartbeat.uptimerobot.com/YOUR_UPTIMEROBOT_MONITOR_ID
 
 ## Docker
 
@@ -57,10 +60,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install heartbeat_monitor
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 

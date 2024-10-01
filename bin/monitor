@@ -9,16 +9,16 @@ options = { test: { status: 200 } }
 OptionParser.new do |opts|
   opts.banner = 'Usage:  bin/monitor [options]'
 
-  opts.on('-t', '--type TYPE', 'check type to be used (HTTP, TCP, UDP)') do |t|
-    type = %w[HTTP TCP UDP].detect { |x| t.upcase == x }
-    raise "Invalid type given '#{t}, supported types: HTTP, TCP, UDP" unless type
+  opts.on('-t', '--type TYPE', 'check type to be used (HTTP, TCP, UDP, BROWSER)') do |t|
+    type = %w[HTTP TCP UDP BROWSER].detect { |x| t.upcase == x }
+    raise "Invalid type given '#{t}, supported types: HTTP, TCP, UDP, BROWSER" unless type
 
     options[:type] = t
   end
   opts.on('-n', '--notification-url URL', 'Url to request on success') do |t|
     options[:notification_url] = t
   end
-  opts.on('-u', '--test-url URL', 'Url to check if using HTTP') do |url|
+  opts.on('-u', '--test-url URL', 'Url to check if using HTTP or BROWSER') do |url|
     options[:url] = url
   end
 
@@ -34,6 +34,10 @@ OptionParser.new do |opts|
   end
   opts.on('--test-payload PAYLOAD', 'Data to post to server under test (eg json)') do |payload|
     options[:payload] = payload
+  end
+
+  opts.on('--test-browser-selector selector', 'the css selector to user with browser testing') do |selector|
+    options[:selector] = selector
   end
 
   opts.on('-i', '--interval SECONDS', 'Number of seconds between checks (defaults to 60)') do |interval|
